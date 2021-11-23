@@ -10,6 +10,7 @@
 - [背景](#背景)
 - [安装](#安装)
 - [使用说明](#使用说明)
+- [贡献](#贡献)
 ## 背景
 之前读者在简书写一些博客，但是总是会感觉平台和自己的关联性不强，虽然也吸引了一些粉丝，但是总是感觉比较惶恐，
 因为工作忙的时候我可能大半个月不会看博客，随着公司技术不断迭代，我想着是时候要迁移一个平台了，就想到了gitbook
@@ -17,7 +18,7 @@
 也会陆陆续续的转移到这个上面。
 
 由于笔者资历尚浅，更加希望这个博客的内容是针对我个人本身成长的，部分内容也会存在一笔带过的嫌疑，如果您刚好读到或者
-发现，也可以给我提一个issure，我会用我200%的努力去回答您的问题。
+发现，也可以给我提一个issue，我会用我200%的努力去回答您的问题。
 
 ## 安装
 ````
@@ -30,3 +31,9 @@ git clone https://www.github.com/mongofs/readme
 $ cd readme
 # Prints out the README.md
 ````
+
+##贡献
+欢迎你的加入！提一个 [issue](https://github.com/mongofs/readme/issues/new)  或者提交一个
+[pull request](https://github.com/mongofs/readme/compare)
+
+标准 Readme 遵循 [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) 行为规范。

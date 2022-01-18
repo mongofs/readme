@@ -1,63 +1,69 @@
-## sed格式
+#sed
 
-    - 命令行
-      - sed [optiongs] 'command' files
-    - 脚本格式
-      - sed -f scriptfile files
+sed 又称为流处理编辑器，和vim 不同的是sed是针对单行进行处理的。从文本或者管道获取到
+输入内容，读取一行到模式空间（可理解为buffer），使用sed命令进行处理，输出到屏幕，然后循环
+读取下一行内容到模式空间，重复上述内容。sed 本质是一次处理一行数据，然后输出，sed 不改变
+源文件内容，如果使用 -i命令则是将源文件内容给替换掉了，使用-i命令一定要谨慎。
+### 目录
+ - sed [optiongs] 'command' files
+ - [optios](####options)
+ - [commands](####commands)    
+    - [定位](####定位)
+    - [命令](####命令)
+    
+### sed options
+命令行模式下一般通用的两个options ，-e: 选中script脚本来处理这个files，-n 是代表安静模式，
+一般配合操作命令p来进行使用。一般其他的选项是用不到的。
+  - -e ：选中特定的脚本
+  - -n ：安静模式
 
-
-#### 命令行模式
-    - options 
-      - -e
-      - -n
-    - command: 行定位的正则+ sed命令
-
-```
-1. sed -n '/root/p'
-2. sed -e '10,20d' -e 's/flase/ture/g'
-```
-
-
-#### sed 基本命令
-- -p :打印 一般和-n 配合使用
+````
+-e<script>或--expression=<script> 以选项中指定的script来处理输入的文本文件。
+-f<script文件>或--file=<script文件> 以选项中指定的script文件来处理输入的文本文件。
+-h或--help 显示帮助。
+-n或--quiet或--silent 仅显示script处理后的结果。
+-V或--version 显示版本信息。
+````
+### sed commands
+- commands = 定位操作+sed命令操作
+````
+sed '5d' files : 删除files 的第五行
+sed '5a abbc' files : 在files第五行插入abbc
+````
+#### sed 定位操作
 - 定位一行 ：x ; /pattern/
 - 定位几行： x,y; /pattern/,x
 - 取反行： x,y!
-- 间隔航： first~step 
-
-
+- 间隔行： first~step 
 #### sed 操作命令
-- -a 新增  
-  - sed '5a -----------------'
-- -i 插入
-  - sed '5i -----------------'
-- -c 替代
-  - sed '5c -------------------'
-- -d 删除
-  - sed '5d '
+这里强调一点：command: 行定位的正则+ sed命令，但是s命令是特殊，需要特殊记忆。比如说我要删除
+第10行： sed '10d' files,可以看到我们直接选中10行进行删除。 
 
-```
-#在files 文件尾部追加prot 5212 换行 port 21234
-sed '$a prot 5212 \n port2 123556' files
-# 打印error日志
-sed -n '/error/p' files
-#删除空行
-sed '/^$/d' files
-```
-
-- -s 替换命令 ：分隔符、，#等
-  - sed 's /false/ture/' passwd
-- -g 整行选中
-  - sed 's/flase/ture/g' passwd
-
-```
-ifconfi ens0 | sed 's/ine.*r://g'| sed 's/B.*//g'
-```
+- p 打印： 一般配合选项 -n 使用
+- a 新增  
+- i 插入
+- c 替代
+- d 删除
+- s 替换 ：一般替换选中行第一个匹配对象，需要全部匹配要g 参数
+````
+sed '5a -----------------'
+sed '5i -----------------'
+sed '5c -------------------'
+sed '5d ' ： 删除第五行
+sed 's/abc/123/g' : 将abc替换成123
+ifconfi ens0 | sed 's/ine.*r://g'| sed 's/B.*//g
+````
 ### sed高级操作命令
 - {}：多个sed命令 用；分开
-  - sed {p;p;p} passwd
-- -n :读取下一个输入行
-  - sed {p;n;p} passwd
+- n :读取下一个输入行
 - & ：简化替换中的操作
-  - sed 's/abc /&  /g' 
-  -  
+- () :更加简化&的操作
+- rw: r 复制制定文件插入到匹配行，w 复制
+- q: 退出sed 
+
+````
+sed {p;p;p} passwd
+sed {p;n;p} passwd
+sed 's/abc /&  /g' 
+sed 's/iam\(good\)/\1/g' = goog 代替iamgood
+````

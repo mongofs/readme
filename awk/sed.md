@@ -10,6 +10,7 @@ sed 又称为流处理编辑器，和vim 不同的是sed是针对单行进行处
  - [commands](####commands)    
     - [定位](####定位)
     - [命令](####命令)
+    - [注意点](####注意点)
     
 ### sed options
 命令行模式下一般通用的两个options ，-e: 选中script脚本来处理这个files，-n 是代表安静模式，
@@ -53,6 +54,18 @@ sed '5d ' ： 删除第五行
 sed 's/abc/123/g' : 将abc替换成123
 ifconfi ens0 | sed 's/ine.*r://g'| sed 's/B.*//g
 ````
+
+#### 注意点
+-  mac下面几乎aci操作都是会报错 
+   ````
+   command i expects \ followed by text
+   ````
+- mac 下面定位操作间隔行是一个不能被认识的指令
+   ````
+   sed: 1: "1~2p": invalid command code ~
+   ````
+- c 命令和s命令的区别在于c命令会把选中的行全部替换成我们新赋值的字符，而s
+是针对行内的字符进行替换
 ### sed高级操作命令
 - {}：多个sed命令 用；分开
 - n :读取下一个输入行

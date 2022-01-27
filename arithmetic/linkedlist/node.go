@@ -1,22 +1,24 @@
-// node类的操作，node类操作并不是单纯的说是node结构体的操作方法，而是针对list上的node
+// node类的操作，node类操作并不是单纯的说是node结构体的操作方法，而是针对List上的node
 // 进行操作。 由于一般工业使用都是使用的是双向链表，但是面试更多的是单链表的操作，所以这里
 // 为了测试理论上的单链表变动，我在这个使用案例这里使用的是单向链表进行演示，这种链表没有实际应用
 // 价值，如果为了工业化应用可以使用golang 的container包下的双向链表进行使用，我后期也会专门
 // 编写一个stl 包进行工业化场景应用,所以在这个案例展示过程中部分方法我会选择性的省略掉，比如pushfront
 // 等操作相似都将被去掉
-package linklist
+package linkedlist
 
 type Node struct {
-	next *Node
-	data interface{}
+	List LinkedList
+	Next,Pre *Node
+	Data interface{}
 }
 
-type list struct {
+
+type List struct {
 	head *Node // 指向链表的头结点
 }
 
-func New()*list {
-	return &list{
+func New()*List {
+	return &List{
 		head: nil,
 	}
 }
@@ -27,7 +29,7 @@ func New()*list {
 // move
 
 // basic 操作
-func (l*list) add(node *Node){
+func (l*List) add(node *Node){
 	if l.head == nil { l.head =node ;return }
 	tem := l.head
 	for tem.next != nil{
@@ -44,7 +46,7 @@ func (l*list) add(node *Node){
 // 被删除值没有存在于
 
 // O(n) 操作
-func (l*list) rm(node *Node){
+func (l*List) rm(node *Node){
 	// 节点数量为一
 	if l.head.next ==nil  && node == l.head { l.head= nil ;return }
 	// 节点数量为二
@@ -64,7 +66,7 @@ func (l*list) rm(node *Node){
 }
 
 // 将节点插入某个节点之后
-func (l*list) mvaft(node,after *Node  ){
+func (l*List) mvaft(node,after *Node  ){
 	tem := l.head
 	for tem == after{
 		tem = tem.next
@@ -75,7 +77,7 @@ func (l*list) mvaft(node,after *Node  ){
 
 
 // 将节点插入某个节点之前
-func (l*list) mvbef(node,bef *Node  ){
+func (l*List) mvbef(node,bef *Node  ){
 	tem := l.head
 	for tem.next == bef {
 		tem = tem.next
@@ -85,11 +87,11 @@ func (l*list) mvbef(node,bef *Node  ){
 }
 
 
-func (l *list)Range()[]interface{}{
+func (l *List)Range()[]interface{}{
 	tem := l.head
 	var res []interface{}
 	for tem !=nil {
-		res= append(res, tem.data)
+		res= append(res, tem.Data)
 		tem=tem.next
 	}
 	return res
@@ -98,20 +100,25 @@ func (l *list)Range()[]interface{}{
 
 // 下面是对外接口
 // 添加参数
-func (l *list)Push (node *Node) {
+func (l *List)Push (node *Node) {
 	if node ==nil {return }
 	l.add(node)
 }
 
 // 删除节点
-func (l *list)Remove(node *Node){
+func (l *List)Remove(node *Node){
 	if  l.head ==nil {return}
 	l.rm(node)
 }
 
+// 弹出节点
+func (l *List)Pop()*Node{
+
+}
+
 // 删除倒数第N个节点
-func (l *list) RmOrderbyDesc(target int){
-	var newList = &list{head: l.head}
+func (l *List) RmOrderbyDesc(target int){
+	var newList = &List{head: l.head}
 
 	// 设置一个temr
 	var temr ,first  =newList.head ,newList.head

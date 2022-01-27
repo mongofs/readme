@@ -1,7 +1,7 @@
-package linklist
+package linkedlist
 
 // 反转链表
-func (l *list)Reserve(){
+func (l *List)Reserve(){
 	// 反转链表
 	var curr,prev   *Node = l.head,nil
 	//  1->2->3->

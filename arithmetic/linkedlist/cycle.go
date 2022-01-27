@@ -1,4 +1,4 @@
-package linklist
+package linkedlist
 
 
 // 检测是否有环 ,通过hash表判断

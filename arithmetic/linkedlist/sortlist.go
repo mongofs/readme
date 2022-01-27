@@ -1,4 +1,4 @@
-package linklist
+package linkedlist
 
 // 有序链表和那个之前设计的单链表节点不同，为了方便演示就不用list了
 type sortNode struct {

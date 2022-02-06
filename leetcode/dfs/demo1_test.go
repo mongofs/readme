@@ -11,4 +11,3 @@ func maxDepth(root *TreeNode) int {
 	return 0
 }
 
-func Test_Demo1(){}
